@@ -61,8 +61,7 @@ def model(self):
   # 重新连接hc并加入
   def reconnect(self):
     try:
-      self.disconnect()
-      self.connect(self.wsaddress)
+      self._connect(self.wsaddress)
       return self.join(self.channel,self.nick,self.passwd)
     except:
       print("error,reconnect in "+str(self.reconn_time)+"s")
@@ -90,6 +89,17 @@ def model(self):
       print("error,reconnect in "+str(self.reconn_time)+"s")
       time.sleep(self.reconn_time)
       print("reconnecting.....")
+      python = sys.executable
+      os.execl(python, python, * sys.argv)
+
+  def _connect(self,wsaddress):
+    try:
+      self.wsaddress=wsaddress
+      self.ws.connect(self.wsaddress)
+    except:
+      print("error,reconnect in "+str(self.reconn_time)+"s")
+      time.sleep(self.reconn_time)
+      print("reconnecting.....")
       self.restart_program()
 
   # 加入频道
@@ -105,12 +115,14 @@ def model(self):
       # 解析内容
       rec=self._str2dict(self.ws.recv())
 
-      self.onlinelist=rec['nicks']
+      
 
       # 如果类型为成功上线
       if rec['cmd'] == 'onlineSet':
         print('joined!')
+        self.onlinelist=rec['nicks']
         return [rec['nicks'],rec['users']]
+
 
       # 如果类型为服务端发出错误
       elif rec['cmd'] == 'warn':
@@ -127,7 +139,9 @@ def model(self):
       print("error,reconnect in "+str(self.reconn_time)+"s")
       time.sleep(self.reconn_time)
       print("reconnecting.....")
-      self.restart_program()
+      python = sys.executable
+      os.execl(python, python, * sys.argv)
+      
 
   # 发送hc的断开链接请求
   def disconnect(self):
@@ -187,7 +201,7 @@ def model(self):
 
   def changechannel(self,channel):
     try:
-      self.ws.channel=change
+      self.channel=channel
       self.reconnect()
     except:
       print("error,reconnect in "+str(self.reconn_time)+"s")
