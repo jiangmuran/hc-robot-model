@@ -262,7 +262,7 @@ recv():
   def changenick(self,nick):
     try:
       self.nick=nick
-      sendcmd('{"cmd":"changenick","nick":"'+nick+'"}')
+      self.sendcmd('{"cmd":"changenick","nick":"'+nick+'"}')
       pass
     except:
       print("error,restart in "+str(self.reconn_time)+"s")
@@ -273,7 +273,7 @@ recv():
   def changecolor(self,color):
     try:
       self.color=color
-      sendcmd('{"cmd":"changecolor","color":"'+color+'"}')
+      self.sendcmd('{"cmd":"changecolor","color":"'+color+'"}')
       pass
     except:
       print("error,restart in "+str(self.reconn_time)+"s")
