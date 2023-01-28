@@ -3,41 +3,10 @@ import os
 import websocket
 import time
 
-def restart_program():
-  """Restarts the current program.
-  Note: this function does not return. Any cleanup action (like
-  saving data) must be done before calling this function."""
-  python = sys.executable
-  os.execl(python, python, * sys.argv)
 
 class hackchat:
   """
-# hackchat机器人模板
 Author:jmr(@jiangmuran)
-本程序遵守MIT开源协议
-
-MIT License
-
-Copyright (c) 2023 jiangmuran
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
 
  restart_program:重新连接
  connect:连接到ws服务器
@@ -127,20 +96,7 @@ recv():
 
   """
 
-  """
-模板：
-def model(self):
-    try:
-      #text in there
-      pass
-    except:
-      print("error,restart in "+str(self.reconn_time)+"s")
-      time.sleep(self.reconn_time)
-      print("restarting.....")
-      self.restart_program()
 
-
-  """
 
   def __init__(self):
     self.wsaddress=''
@@ -336,25 +292,3 @@ def model(self):
       print("restarting.....")
       self.restart_program()
 
-
-
-
-
-  
-
-if __name__ == "__main__":
-  print('start')
-  try:
-    x = hackchat()
-    x.connect('wss://hack.chat/chat-ws')
-    x.join('your-channel','jmrobot','')
-    x.sendme('helloworld!')
-    input()
-    x.changechannel('lounge')
-    input()
-    
-  except:
-    print("error,restart in "+str(self.reconn_time)+"s")
-    time.sleep(self.reconn_time)
-    print("restarting.....")
-    restart_program()
