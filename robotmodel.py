@@ -25,9 +25,9 @@ Author:jmr(@jiangmuran)
  changecolor:切换颜色
 
  getonlinelist:获取在线昵称列表
-x recvreal:接收实际信息
-x recv:只接收聊天信息
-x _choosemsg:辨别信息
+ recvreal:接收实际信息
+ recv:只接收聊天信息
+ _choosemsg:辨别信息
 
 restart_program():
   程序内部重连，相当于reconnect()
@@ -82,11 +82,12 @@ recvreal():
   如果遇到onlineuser修改会自动补充
 
 recv():
-  获取当前最新一条的文字信息
+  获取当前最新一条分类信息
   返回一个列表:
-  [0]:消息类型，0为正常，1为emote，2为私信
-  [1]:发送者，字符串
-  [2]:消息内容，字符串
+  [0]:消息类型，0为正常，1为emote，2为私信，3为警告，4为提示，5为其他
+  [1]:发送者，字符串，如果是警告则为!warn,提示为!info，其他为发送方(如果已知)
+  [2]:消息内容，字符串，其他为具体内容（如果已知）
+
 
 
 
@@ -106,7 +107,7 @@ recv():
     self.passwd=''
     self.color=''
     self.onlinelist=[]
-    self.ver='qwq0.99'
+    self.ver='qwq1.0'
     self.reconn_time=30 # 出错后重试时间
     
   # 重新连接hc并加入
@@ -291,4 +292,47 @@ recv():
       time.sleep(self.reconn_time)
       print("restarting.....")
       self.restart_program()
+
+  def _choosemsg(self,msgstr):
+    try:
+      msgdict=self._str2dict(msgstr)
+      # 新用户
+      if msgdict['cmd'] == 'onlineRemove':
+        del self.onlinelist[self.onlinelist.index(msgdict['nick'])]
+        return [5,'!userleft',msgdict['nick']]
+      elif msgdict['cmd'] == 'onlineAdd':
+        self.onlinelist.append(msgdict['nick'])
+        return [5,'!useradd',msgdict['nick']]
+      elif msgdict['cmd'] == 'chat':
+        return [0,msgdict['nick'],msgdict['text']]
+      elif msgdict['cmd'] == 'emote':
+        return [1,msgdict['nick'],msgdict['text'][(2+len(msgdict['nick'])):]]
+      elif msgdict['cmd'] == 'chat':
+        return [0,msgdict['nick'],msgdict['text']]
+      elif msgdict['cmd'] == 'info':
+        if msgdict.__contains__('type'):
+          if msgdict['type'] == 'whisper' :
+            if msgdict['text'][0:3] != 'You':
+              return [2,msgdict['text'].split(' ')[0],msgdict['text'][len(msgdict['text'].split(' ')[0])+12:]]
+          else:
+            return [5,'!echo',msgdict['text']]
+        else:
+          return [4,'!info',msgdict['text']]
+      elif msgdict['cmd'] == 'warn':
+        return [3,'!warn',msgdict['text']]
+      else:
+        return [5,'not found',msgstr]
+    except:
+      print("error,restart in "+str(self.reconn_time)+"s")
+      time.sleep(self.reconn_time)
+      print("restarting.....")
+      self.restart_program()
+    
+  def recvreal(self):
+    xyz=self.ws.recv()
+    self._choosemsg(xyz)
+    return self._str2dict(xyz)
+
+  def recv(self):
+    return self._choosemsg(self.ws.recv())
 
