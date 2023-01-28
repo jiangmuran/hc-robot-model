@@ -1,6 +1,7 @@
 # hc机器人模板
 Ver:qwq0.99
 Author:jmr(@jiangmuran)
+##安装此程序时需要卸载pip库：websocket,安装websocket-client
 本程序遵守MIT开源协议
 
 MIT License
