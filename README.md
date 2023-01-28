@@ -44,3 +44,6 @@ SOFTWARE.
 
 ### qwq1.2更新日志 & jmr(jiangmuran)
 - 修复一个致命性bug，两个小bug
+
+### qwq1.3更新日志 & jmr(jiangmuran)
+- 修复2个致命性bug

@@ -107,7 +107,7 @@ recv():
     self.passwd=''
     self.color=''
     self.onlinelist=[]
-    self.ver='qwq1.2'
+    self.ver='qwq1.3'
     self.reconn_time=30 # 出错后重试时间
     
   # 重新连接hc并加入
@@ -223,7 +223,7 @@ recv():
 
   def sendme(self,text):
     try:
-      self.ws.send({'cmd':'emote','text':text})
+      self.sendcmd({'cmd':'emote','text':text})
       pass
     except:
       print("error,reconnect in "+str(self.reconn_time)+"s")
@@ -233,7 +233,7 @@ recv():
 
   def sendw(self,nick,text):
     try:
-      self.ws.sendcmd({'cmd':'whisper','nick':nick,'text':text})
+      self.sendcmd({'cmd':'whisper','nick':nick,'text':text})
     except:
       print("error,reconnect in "+str(self.reconn_time)+"s")
       time.sleep(self.reconn_time)
