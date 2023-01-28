@@ -223,7 +223,7 @@ recv():
 
   def sendme(self,text):
     try:
-      self.sendcmd('{"cmd":"emote","text":'+text+'}')
+      self.sendcmd('{"cmd":"emote","text":"'+text+'"}')
     except:
       print("error,reconnect in "+str(self.reconn_time)+"s")
       time.sleep(self.reconn_time)
@@ -232,7 +232,7 @@ recv():
 
   def sendw(self,nick,text):
     try:
-      self.sendcmd('{"cmd":"whisper","nick":'+nick+',"text":'+text+'}')
+      self.sendcmd('{"cmd":"whisper","nick":'+nick+',"text":"'+text+'""}')
     except:
       print("error,reconnect in "+str(self.reconn_time)+"s")
       time.sleep(self.reconn_time)
@@ -262,7 +262,7 @@ recv():
   def changenick(self,nick):
     try:
       self.nick=nick
-      sendcmd('{"cmd":"changenick","nick":'+nick+'}')
+      sendcmd('{"cmd":"changenick","nick":"'+nick+'"}')
       pass
     except:
       print("error,restart in "+str(self.reconn_time)+"s")
@@ -273,7 +273,7 @@ recv():
   def changecolor(self,color):
     try:
       self.color=color
-      sendcmd('{"cmd":"changecolor","color":'+color+'}')
+      sendcmd('{"cmd":"changecolor","color":"'+color+'"}')
       pass
     except:
       print("error,restart in "+str(self.reconn_time)+"s")
