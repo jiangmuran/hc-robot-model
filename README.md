@@ -36,5 +36,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## qwq0.99更新日志 & jmr(jiangmuran)
+### qwq0.99更新日志 & jmr(jiangmuran)
 - 更新了hc的基础框架（少了辨别功能）
+
+### qwq1.0更新日志 & jmr(jiangmuran)
+- 完美上线hc框架
+
+### qwq1.2更新日志 & jmr(jiangmuran)
+- 修复一个致命性bug，两个小bug
