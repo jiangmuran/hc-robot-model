@@ -284,7 +284,7 @@ recv():
   def changepasswd(self,passwd):
     try:
       self.passwd=passwd
-      reconnect()
+      self.reconnect()
     except:
       print("error,restart in "+str(self.reconn_time)+"s")
       time.sleep(self.reconn_time)
