@@ -232,7 +232,8 @@ recv():
 
   def sendw(self,nick,text):
     try:
-      self.sendcmd('{"cmd":"whisper","nick":"'+nick+'","text":"'+text+'""}')
+      print('{"cmd":"whisper","nick":"'+nick+'","text":"'+text+'""}')
+      self.sendcmd('{"cmd":"whisper","nick":"'+nick+'","text":"'+text+'"}')
     except:
       print("error,reconnect in "+str(self.reconn_time)+"s")
       time.sleep(self.reconn_time)
