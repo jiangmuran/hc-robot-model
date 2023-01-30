@@ -110,6 +110,11 @@ recv():
     self.ver='qwq1.3'
     self.reconn_time=30 # 出错后重试时间
     
+  def enter2fakeenter(self,string):
+  
+    return '\\n'.join(string.split('\n'))
+  
+
   # 重新连接hc并加入
   def reconnect(self):
     try:
@@ -206,13 +211,14 @@ recv():
       print("reconnecting.....")
       self.restart_program()
 
-  
+
 
   def getonlinelist(self):
     return self.onlinelist
 
   def send(self,text):
     try:
+      text=self.enter2fakeenter(text)
       self.ws.send('{"cmd":"chat","text":"'+text+'"}')
       pass
     except:
